@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 CORS(app)
 mongo = PyMongo(app)
-Notes = mongo.db.notes
+Notes = mongo.db["notes"]
 
 @app.get("/api/get_all_access_codes")
 def get_all_access_codes():
