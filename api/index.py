@@ -7,10 +7,25 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 CORS(app)
-mongo = PyMongo(app)
-Notes = mongo.db["notes"]
+
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+DB_NAME = os.getenv('DB_NAME')
+
+try:
+    mongo = PyMongo(app)
+    mongo.db.command('ping')
+    print("Connected to MongoDB!")
+except Exception as e:
+    print(f"Error connecting to MongoDB: {e}")
+    raise
+
+try:
+    Notes = mongo.db.notes
+except Exception as e:
+    print(f"Error accessing notes collection: {e}")
+    raise
+
 
 @app.get("/api/get_all_access_codes")
 def get_all_access_codes():
