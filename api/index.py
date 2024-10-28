@@ -8,6 +8,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+port = int(os.environ.get('PORT', 5000))
 CORS(app)
 
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -122,4 +123,4 @@ def get_notes(access_code):
 app.debug = True
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
