@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-port = int(os.environ.get('PORT', 5000))
+port = os.environ.get('PORT', 5000)
 CORS(app)
 
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
